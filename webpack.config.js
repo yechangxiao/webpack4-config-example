@@ -25,6 +25,15 @@ module.exports = {
             limit: 10 * 1024
           }
         }
+      },
+      {
+        test: /.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       }
     ]
   }
