@@ -13,6 +13,10 @@ import codeImg from './code.png'
 //   alert('hello world')
 // })
 
-import foot from './foot.html'
+// import foot from './foot.html'
 
-document.write(foot)
+// document.write(foot)
+
+import markdown from './markdown.md'
+
+console.log(markdown, 111);

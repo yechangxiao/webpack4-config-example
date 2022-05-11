@@ -56,6 +56,10 @@ module.exports = {
             }
           }
         }
+      },
+      {
+        test: /.md$/,
+        loader: './markdow-loader.js'
       }
     ]
   }
