@@ -3,12 +3,16 @@ import './main.css'
 
 import codeImg from './code.png'
 
-const img = new Image()
+// const img = new Image()
 
-img.src = codeImg
+// img.src = codeImg
 
-document.body.append(img)
+// document.body.append(img)
 
-img.addEventListener('click', () => {
-  alert('hello world')
-})
+// img.addEventListener('click', () => {
+//   alert('hello world')
+// })
+
+import foot from './foot.html'
+
+document.write(foot)

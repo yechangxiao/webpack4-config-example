@@ -34,6 +34,28 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /.html$/,
+        use: {
+          loader: 'html-loader', // 处理html中的文件加载，注意与html-webpack-plugin区分
+          options: {
+            attributes: { // 添加支持解析的标签
+              list: [
+                {
+                  tag: 'img',
+                  attribute: 'src',
+                  type: 'src',
+                },
+                {
+                  tag: 'a',
+                  attribute: 'href',
+                  type: 'src',
+                },
+              ]
+            }
+          }
+        }
       }
     ]
   }
