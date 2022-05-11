@@ -1,4 +1,5 @@
 const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
@@ -62,5 +63,8 @@ module.exports = {
         loader: './markdow-loader.js'
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin()
+  ]
 }
