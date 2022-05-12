@@ -1,5 +1,6 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
 
 module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
@@ -71,6 +72,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new CopyRightWebpackPlugin()
   ]
 }
