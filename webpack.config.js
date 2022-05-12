@@ -2,6 +2,7 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin') // webpack < 5的时候这个插件版本得小于7
 
 module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
@@ -91,6 +92,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'about.html',
       template: './about.html'
-    })
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'public' }]
+    }),
   ]
 }
