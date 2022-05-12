@@ -17,6 +17,6 @@ import codeImg from './code.png'
 
 // document.write(foot)
 
-import markdown from './markdown.md'
+// import markdown from './markdown.md'
 
-console.log(markdown, 111);
+console.log('hello, 1233');

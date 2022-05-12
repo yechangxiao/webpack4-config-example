@@ -9,6 +9,9 @@ module.exports = {
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
     publicPath: 'dist/'
   },
+  resolveLoader: {
+    modules: ['node_modules', './'], // 添加loader的第二种路径处理
+  },
   module: {
     rules: [
       {
@@ -29,12 +32,15 @@ module.exports = {
       },
       {
         test: /.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
+        use: [
+          'replaceLoader',
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
           }
-        }
+        ]
       },
       {
         test: /.html$/,
