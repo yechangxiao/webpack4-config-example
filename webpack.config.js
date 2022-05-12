@@ -1,6 +1,7 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
@@ -8,7 +9,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
-    publicPath: 'dist/'
+    // publicPath: 'dist/'
   },
   resolveLoader: {
     modules: ['node_modules', './'], // 添加loader的第二种路径处理
@@ -43,28 +44,30 @@ module.exports = {
           }
         ]
       },
-      {
-        test: /.html$/,
-        use: {
-          loader: 'html-loader', // 处理html中的文件加载，注意与html-webpack-plugin区分
-          options: {
-            attributes: { // 添加支持解析的标签
-              list: [
-                {
-                  tag: 'img',
-                  attribute: 'src',
-                  type: 'src',
-                },
-                {
-                  tag: 'a',
-                  attribute: 'href',
-                  type: 'src',
-                },
-              ]
-            }
-          }
-        }
-      },
+      // {
+      //   test: /.html$/, // 
+      //   use: {
+      //     // 处理html中的文件加载，注意与html-webpack-plugin区分
+      //     // 这个loader会影响到html-webpack-plugin，比如使用<%= htmlWebpackPlugin.options.title %>不能进行解析
+      //     loader: 'html-loader',
+      //     options: {
+      //       attributes: { // 添加支持解析的标签
+      //         list: [
+      //           {
+      //             tag: 'img',
+      //             attribute: 'src',
+      //             type: 'src',
+      //           },
+      //           {
+      //             tag: 'a',
+      //             attribute: 'href',
+      //             type: 'src',
+      //           },
+      //         ]
+      //       }
+      //     }
+      //   }
+      // },
       {
         test: /.md$/,
         loader: './markdow-loader.js'
@@ -73,6 +76,21 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyRightWebpackPlugin()
+    new CopyRightWebpackPlugin(),
+    // 用于生成index.html
+    new HtmlWebpackPlugin({ // 在webpack4和bable7下，必须指定template，不然就会出错
+      title: 'webpack plugin sample',
+      meta: { 
+        viewport: 'width=device-width'
+      },
+      filename: 'index.html',
+      template: './index.html',
+      inject: true
+    }),
+    // 生成about.html，用于多页面打包
+    new HtmlWebpackPlugin({
+      filename: 'about.html',
+      template: './about.html'
+    })
   ]
 }
