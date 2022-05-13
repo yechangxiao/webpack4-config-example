@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const CopyRightWebpackPlugin = require('../copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -93,5 +94,8 @@ module.exports = {
       filename: 'about.html',
       template: 'public/about.html'
     }),
+    new webpack.DefinePlugin({
+      BASE_TEST: JSON.stringify('base_test'), // 值是字符串，则作为代码片段，所以需要进行序列化一次
+    })
   ]
 }

@@ -21,3 +21,5 @@ img.addEventListener('click', () => {
 // console.log('1', abc);
 
 console.log('hello, 1233');
+console.log('definePlugin', BASE_TEST);
+
