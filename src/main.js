@@ -18,5 +18,6 @@ img.addEventListener('click', () => {
 // document.write(foot)
 
 // import markdown from './markdown.md'
+// console.log('1', abc);
 
 console.log('hello, 1233');

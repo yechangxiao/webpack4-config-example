@@ -12,6 +12,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
+  devtool: 'eval-cheap-source-map',
   devServer: {
     static: true, // 开发环境下访问静态资源，代替copy-webpack-plugin，默认开启
     proxy: {
