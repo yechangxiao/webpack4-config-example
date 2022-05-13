@@ -12,6 +12,9 @@ module.exports = {
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
+  devServer: {
+    static: true, // 开发环境下访问静态资源，代替copy-webpack-plugin，默认开启
+  },
   resolveLoader: {
     modules: ['node_modules', './'], // 添加loader的第二种路径处理
   },
@@ -93,8 +96,10 @@ module.exports = {
       filename: 'about.html',
       template: './about.html'
     }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'public' }]
-    }),
+    // 开发阶段最好不要使用这个插件，因为开发下打包频繁，拷贝文件费性能
+    // 可以配置devServer中的static(默认为true)，访问静态资源
+    // new CopyWebpackPlugin({
+    //   patterns: [{ from: 'public' }]
+    // }),
   ]
 }
