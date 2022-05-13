@@ -27,7 +27,9 @@ module.exports = {
         // 因为服务器会有多个网站，需要请求的主机名来确定你访问的是哪个网站
         changeOrigin: true
       }
-    }
+    },
+    // hot: false, // webpack4已经默认开启了，插件也不需要加了
+    // hot: 'only', // 在热更新失败时不刷新页面进行回退，防止错误信息被刷新掉
   },
   resolveLoader: {
     modules: ['node_modules', './'], // 添加loader的第二种路径处理
