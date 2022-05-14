@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[contenthash:8].js',
     path: path.join(__dirname, '../dist'), // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
@@ -108,6 +108,8 @@ module.exports = {
     new webpack.DefinePlugin({
       BASE_TEST: JSON.stringify('base_test'), // 值是字符串，则作为代码片段，所以需要进行序列化一次
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:8].css'
+    })
   ]
 }

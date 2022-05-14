@@ -13,7 +13,7 @@ module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
   entry: './src/main.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[contenthash:8].js',
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
@@ -145,6 +145,8 @@ module.exports = {
     // new CopyWebpackPlugin({
     //   patterns: [{ from: 'public' }]
     // }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:8].css'
+    })
   ]
 }
