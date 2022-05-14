@@ -12,6 +12,11 @@ module.exports = {
     path: path.join(__dirname, 'dist'), // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
+  optimization: {
+    usedExports: true, // 标记未使用的代码，在生产模式默认开启
+    minimize: true， // 压缩代码，并根据usedExports收集的信息，将未使用的代码去掉，在生产模式默认开启
+    concatenateModules: true, // 将多个模块合并成一个模块，提高运行效率，减少代码体积，也成为作用域提升Scope Hoisting，生产环境默认开启
+  },
   devtool: 'eval-cheap-source-map',
   devServer: {
     static: true, // 开发环境下访问静态资源，代替copy-webpack-plugin，默认开启
@@ -59,7 +64,11 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
+              presets: [
+                ['@babel/preset-env', {
+                  modules: false, // 默认是auto，为了保证ESM不被转换，用于tree-shaking，强制设为false
+                }]
+              ]
             }
           }
         ]

@@ -40,7 +40,11 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
+              presets: [
+                ['@babel/preset-env', {
+                  modules: false, // 默认是auto，为了保证ESM不被转换，用于tree-shaking，强制设为false
+                }]
+              ]
             }
           }
         ]
