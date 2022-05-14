@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const CopyRightWebpackPlugin = require('../copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -20,7 +21,10 @@ module.exports = {
       {
         test: /.css$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          // 'style-loader',
           'css-loader', // 只是打包css，需要其他loader来引入
         ]
       },
@@ -98,11 +102,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'about.html',
       template: 'public/about.html',
-      chunks: ['about'], // 多入口打包中指定注入的chunks
+      // chunks: ['about'], // 多入口打包中指定注入的chunks
 
     }),
     new webpack.DefinePlugin({
       BASE_TEST: JSON.stringify('base_test'), // 值是字符串，则作为代码片段，所以需要进行序列化一次
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 }

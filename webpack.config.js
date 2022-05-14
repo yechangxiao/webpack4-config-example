@@ -3,6 +3,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin') // webpack < 5的时候这个插件版本得小于7
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+
+
 
 module.exports = {
   mode: 'none', // webpack为每种模式预设了一些配置
@@ -14,12 +19,16 @@ module.exports = {
   },
   optimization: {
     usedExports: true, // 标记未使用的代码，在生产模式默认开启
-    minimize: true， // 压缩代码，并根据usedExports收集的信息，将未使用的代码去掉，在生产模式默认开启
+    minimize: true, // 压缩代码，并根据usedExports收集的信息，将未使用的代码去掉，在生产模式默认开启
     concatenateModules: true, // 将多个模块合并成一个模块，提高运行效率，减少代码体积，也成为作用域提升Scope Hoisting，生产环境默认开启
     splitChunks: { // 分包，将公共的代码模块分离到一个公共的chunk中
       chunks: 'all',
       minSize: 0
-    }
+    },
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin()
+    ]
   },
   devtool: 'eval-cheap-source-map',
   devServer: {
@@ -48,7 +57,10 @@ module.exports = {
       {
         test: /.css$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          // 'style-loader',
           'css-loader', // 只是打包css，需要其他loader来引入
         ]
       },
@@ -126,12 +138,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'about.html',
       template: 'public/about.html',
-      chunks: ['about'], // 为多入口打包时指定注入的chunk
+      // chunks: ['about'], // 为多入口打包时指定注入的chunk
     }),
     // 开发阶段最好不要使用这个插件，因为开发下打包频繁，拷贝文件费性能
     // 可以配置devServer中的static(默认为true)，访问静态资源
     // new CopyWebpackPlugin({
     //   patterns: [{ from: 'public' }]
     // }),
+    new MiniCssExtractPlugin()
   ]
 }
