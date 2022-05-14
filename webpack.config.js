@@ -16,6 +16,10 @@ module.exports = {
     usedExports: true, // 标记未使用的代码，在生产模式默认开启
     minimize: true， // 压缩代码，并根据usedExports收集的信息，将未使用的代码去掉，在生产模式默认开启
     concatenateModules: true, // 将多个模块合并成一个模块，提高运行效率，减少代码体积，也成为作用域提升Scope Hoisting，生产环境默认开启
+    splitChunks: { // 分包，将公共的代码模块分离到一个公共的chunk中
+      chunks: 'all',
+      minSize: 0
+    }
   },
   devtool: 'eval-cheap-source-map',
   devServer: {
@@ -115,12 +119,14 @@ module.exports = {
       filename: 'index.html',
       template: 'public/index.html',
       minify: false, // 禁用html压缩，当html模板使用了options的时候，在压缩的时候会出错
-      inject: true
+      inject: true,
+      chunks: ['index'], // 为多入口打包时指定注入的chunk
     }),
     // 生成about.html，用于多页面打包
     new HtmlWebpackPlugin({
       filename: 'about.html',
-      template: 'public/about.html'
+      template: 'public/about.html',
+      chunks: ['about'], // 为多入口打包时指定注入的chunk
     }),
     // 开发阶段最好不要使用这个插件，因为开发下打包频繁，拷贝文件费性能
     // 可以配置devServer中的static(默认为true)，访问静态资源

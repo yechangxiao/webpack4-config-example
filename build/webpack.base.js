@@ -91,12 +91,15 @@ module.exports = {
       filename: 'index.html',
       template: 'public/index.html', // 这里的相对路径是相对于项目的根路径的，所以可以使用'./index.html'或'index.html'
       minify: false, // 禁用html压缩，当html模板使用了options的时候，在压缩的时候会出错
-      inject: true
+      inject: true,
+      chunks: ['index'], // 多入口打包中指定注入的chunks
     }),
     // 生成about.html，用于多页面打包
     new HtmlWebpackPlugin({
       filename: 'about.html',
-      template: 'public/about.html'
+      template: 'public/about.html',
+      chunks: ['about'], // 多入口打包中指定注入的chunks
+
     }),
     new webpack.DefinePlugin({
       BASE_TEST: JSON.stringify('base_test'), // 值是字符串，则作为代码片段，所以需要进行序列化一次
