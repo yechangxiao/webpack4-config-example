@@ -4,7 +4,7 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: [
+  extends: [ // 需要继承的配置
     'plugin:vue/essential',
     'standard'
   ],
