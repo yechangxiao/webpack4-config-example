@@ -19,5 +19,5 @@ img.addEventListener('click', () => {
 // import markdown from './markdown.md'
 // console.log('1', abc);
 
-console.log('hello, 1233');
+console.log('hello, 1233')
 console.log('definePlugin', BASE_TEST) // eslint-disable-line
