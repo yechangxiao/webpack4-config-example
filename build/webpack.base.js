@@ -5,16 +5,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
+/**
+ * @type { import('webpack').Configuration }
+*/
+// const config = {
+//   // 这时候里面的webpakc配置就可以有智能提示了
+// }
+// 有些版本直接module.exports = {}也可以智能提示？
+// module.exports = config
+// @type 是jsdoc
+// import('webpack').Configuration是ts
+
 module.exports = {
   entry: './src/main.js',
   output: {
     filename: 'bundle.[contenthash:8].js',
-    path: path.join(__dirname, '../dist'), // 必须是一个绝对路径
+    path: path.join(__dirname, '../dist') // 必须是一个绝对路径
     // publicPath: 'dist/'
   },
 
   resolveLoader: {
-    modules: ['node_modules', '../'], // 添加loader的第二种路径处理
+    modules: ['node_modules', '../'] // 添加loader的第二种路径处理
   },
   module: {
     rules: [
@@ -25,7 +36,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader
           },
           // 'style-loader',
-          'css-loader', // 只是打包css，需要其他loader来引入
+          'css-loader' // 只是打包css，需要其他loader来引入
         ]
       },
       {
@@ -46,7 +57,7 @@ module.exports = {
             options: {
               presets: [
                 ['@babel/preset-env', {
-                  modules: false, // 默认是auto，为了保证ESM不被转换，用于tree-shaking，强制设为false
+                  modules: false // 默认是auto，为了保证ESM不被转换，用于tree-shaking，强制设为false
                 }]
               ]
             }
@@ -54,7 +65,7 @@ module.exports = {
         ]
       },
       // {
-      //   test: /.html$/, // 
+      //   test: /.html$/, //
       //   use: {
       //     // 处理html中的文件加载，注意与html-webpack-plugin区分
       //     // 这个loader会影响到html-webpack-plugin，比如使用<%= htmlWebpackPlugin.options.title %>不能进行解析
@@ -89,24 +100,24 @@ module.exports = {
     // 用于生成index.html
     new HtmlWebpackPlugin({ // 在webpack4和bable7下，必须指定template，不然就会出错
       title: 'webpack plugin sample',
-      // meta: { 
+      // meta: {
       //   viewport: 'width=device-width'
       // },
       filename: 'index.html',
       template: 'public/index.html', // 这里的相对路径是相对于项目的根路径的，所以可以使用'./index.html'或'index.html'
       minify: false, // 禁用html压缩，当html模板使用了options的时候，在压缩的时候会出错
       inject: true,
-      chunks: ['index'], // 多入口打包中指定注入的chunks
+      chunks: ['index'] // 多入口打包中指定注入的chunks
     }),
     // 生成about.html，用于多页面打包
     new HtmlWebpackPlugin({
       filename: 'about.html',
-      template: 'public/about.html',
+      template: 'public/about.html'
       // chunks: ['about'], // 多入口打包中指定注入的chunks
 
     }),
     new webpack.DefinePlugin({
-      BASE_TEST: JSON.stringify('base_test'), // 值是字符串，则作为代码片段，所以需要进行序列化一次
+      BASE_TEST: JSON.stringify('base_test') // 值是字符串，则作为代码片段，所以需要进行序列化一次
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css'
