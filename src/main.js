@@ -1,4 +1,5 @@
 import './main.css'
+import './main.less'
 
 import codeImg from './code.png'
 

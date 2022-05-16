@@ -63,6 +63,17 @@ module.exports = {
         ]
       },
       {
+        test: /\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          // 'style-loader',
+          'css-loader', // 只是打包css，需要其他loader来引入
+          'less-loader'
+        ]
+      },
+      {
         test: /.(png|jp?g|gif)$/,
         use: {
           loader: 'url-loader', // 超过limit大小的会自动调用file-loader进行处理
