@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const CopyWebpackPlugin = require('copy-webpack-plugin') // webpack < 5的时候这个插件版本得小于7
+const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -100,6 +101,10 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.vue$/,
+        use: 'vue-loader'
+      },
       // {
       //   test: /.html$/, //
       //   use: {
@@ -131,6 +136,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     new CopyRightWebpackPlugin(),
     // 用于生成index.html
