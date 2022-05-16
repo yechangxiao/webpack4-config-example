@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyRightWebpackPlugin = require('./copyright-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -156,6 +157,9 @@ module.exports = {
       filename: 'about.html',
       template: 'public/about.html'
       // chunks: ['about'], // 为多入口打包时指定注入的chunk
+    }),
+    new webpack.DefinePlugin({
+      BASE_URL: JSON.stringify('./')
     }),
     // 开发阶段最好不要使用这个插件，因为开发下打包频繁，拷贝文件费性能
     // 可以配置devServer中的static(默认为true)，访问静态资源
