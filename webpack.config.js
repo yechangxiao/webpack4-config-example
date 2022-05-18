@@ -149,8 +149,8 @@ module.exports = {
       filename: 'index.html',
       template: 'public/index.html',
       minify: false, // 禁用html压缩，当html模板使用了options的时候，在压缩的时候会出错
-      inject: true,
-      chunks: ['index'] // 为多入口打包时指定注入的chunk
+      inject: true
+      // chunks: ['index'] // 为多入口打包时指定注入的chunk
     }),
     // 生成about.html，用于多页面打包
     new HtmlWebpackPlugin({
