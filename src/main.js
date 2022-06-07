@@ -13,7 +13,7 @@ img.src = codeImg
 document.body.append(img)
 
 img.addEventListener('click', () => {
-  alert('hello world')
+  alert('ci 测试')
 })
 
 // import foot from './foot.html'
